@@ -40,6 +40,8 @@ class SpaceInvaders(object):
         if keys[K_DOWN]:
             self.spacecraft.set_position(y=3)
         if keys[K_UP]:
+            # Ligar as turbinas da nave
+            self.spacecraft.turbe_active = True
             self.spacecraft.set_position(y=-3)
 
     def on_event(self, event):
