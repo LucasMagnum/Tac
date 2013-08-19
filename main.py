@@ -21,28 +21,19 @@ class SpaceInvaders(object):
         """ Inicializar os modulos do pygame como outros detalhes do game """
         # inicializar modulos
         pygame.init()
+
         self.load_itens()
 
         # definir o titulo
         pygame.display.set_caption('Space Invaders - Lucas Magnum')
-
         # setar o tamanho inicial da tela
         self._display = pygame.display.set_mode(self.size)
 
     def on_keys(self):
         """ Ações para as Keys pressionadas """
         keys = pygame.key.get_pressed()
-
-        if keys[K_RIGHT]:
-            self.spacecraft.set_position(x=3)
-        if keys[K_LEFT]:
-            self.spacecraft.set_position(x=-3)
-        if keys[K_DOWN]:
-            self.spacecraft.set_position(y=3)
-        if keys[K_UP]:
-            # Ligar as turbinas da nave
-            self.spacecraft.turbe_active = True
-            self.spacecraft.set_position(y=-3)
+        # chama as ações do spacecraft
+        self.spacecraft.on_keys(keys)
 
     def on_event(self, event):
         """ Ações para o eventos realizados no jogo """
@@ -61,7 +52,7 @@ class SpaceInvaders(object):
         self._display.blit(self.background, (0, 0))
 
         # desenhar spacecraft
-        self._display.blit(*self.spacecraft.draw())
+        self.spacecraft.draw(self._display)
 
     def on_cleanup(self):
         # sair do programa
@@ -76,6 +67,7 @@ class SpaceInvaders(object):
 
             for event in pygame.event.get():
                 self.on_event(event)
+                self.spacecraft.on_event(event)
 
             self.on_keys()
             self.on_loop()
