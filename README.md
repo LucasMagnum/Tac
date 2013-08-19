@@ -9,7 +9,8 @@ O objetivo inicial é construir um protótipo funcional, utilizando o framework 
 
 ### Protótipos
 
-Ao longo do processo de análise e escolha do tema do jogo, é 
+Ao longo do processo de análise e escolha do tema, é necessário construir protótipos funcionais para melhorar o 
+conhecimento sobre o modo de funcionamento do framework.
 
 ###### Protótipo 01 - Space Invaders
 O primeiro protótipo construído é baseado no jogo **space invaders**.
