@@ -1,15 +1,12 @@
 # coding: utf-8
 
-import random
-
 import pygame
 from pygame.locals import *
 
-from collections import namedtuple
-from itertools import count
+from utils import Gun
 
 # quantidade de pixels que os desenhos deverao movimentar
-PIXEL_PER_LOOP = 3
+SPACE_PIXEL_MOVE = 3
 
 
 class SpaceCraft(object):
@@ -19,24 +16,33 @@ class SpaceCraft(object):
         self.img = self.spacecraft_name
         self.position = self.set_initial_position()
         self.turbe_active = False
+        self.gun = Gun(self)
+
+    @property
+    def middle_position(self):
+        """ Retorna a posição do meio da nave """
+        # tamanhos do display, desconsiderando o tamanho da nave
+        position = list(self.position)
+        position[0] += self.img_rect.width/2
+        return position
 
     def on_keys(self, keys):
         if keys[K_RIGHT]:
-            self.set_position(x=PIXEL_PER_LOOP)
+            self.set_position(x=SPACE_PIXEL_MOVE)
         if keys[K_LEFT]:
-            self.set_position(x=-PIXEL_PER_LOOP)
+            self.set_position(x=-SPACE_PIXEL_MOVE)
         if keys[K_DOWN]:
-            self.set_position(y=PIXEL_PER_LOOP)
+            self.set_position(y=SPACE_PIXEL_MOVE)
         if keys[K_UP]:
             # Ligar as turbinas da nave
             self.turbe_active = True
-            self.set_position(y=-PIXEL_PER_LOOP)
+            self.set_position(y=-SPACE_PIXEL_MOVE)
         self.turbe_mode()
 
     def on_event(self, event):
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
-                pass # shot here
+                self.gun.shot()
 
     def set_position(self, x=0, y=0):
         """ 
@@ -81,7 +87,12 @@ class SpaceCraft(object):
         self.img_rect = self.img_load.get_rect()
 
     def draw(self, display):
-        """ Desenha a nave no display na sua posição """
+        """ Desenha a nave e seus objetos """
         self.load_img()
+        
+        # desenhar as balas disparadas pela arma
+        self.gun.draw(display)
+
+        # desenhar a nave na tela
         display.blit(self.img_load, self.position)
 
