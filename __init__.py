@@ -8,5 +8,8 @@
 
     Dia 02 - Definir limites da tela e realizar disparos com a Nave
         Objetivo do dia: Realizar disparos e limitar movimentação
+        
+    Dia 03 - Mostrar inimigos na tela, inicialmente andando de um lado para outro.
+        Objetivo do dia: Mostrar os inimigos se movendo
 
 """
