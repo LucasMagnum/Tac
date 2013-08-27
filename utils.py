@@ -28,10 +28,19 @@ class Bullet(object):
         return [position_x, position_y]
 
     def move(self):
+        """ 
+            Função para mover a bala, originalmente diminuindo o valor do Y a
+            bala sobe. 
+            Deve permitir a escolha a direção da bala, para que possa ser usada
+            tanto para spacecrafts quanto para seus inimigos.
+        """
         self.position[1] -= BULLET_PIXEL_MOVE
 
     @property
     def displayed(self):
+        """ 
+            Define se a bala está em area que possibilita a visualização.
+        """
         return self.position[1] > 0
 
 
@@ -59,9 +68,7 @@ class Gun(object):
             maior que o tempo de carregamento da arma
         """
         last_shot = time.time() - self._last_shot
-        if last_shot > GUN_RELOAD_TIME:
-            return True
-        return False
+        return last_shot > GUN_RELOAD_TIME:
 
     def bullets(self, bullet=None):
         """ Função para registrar um disparo """
